@@ -5,9 +5,14 @@ public class Main {
         System.out.println("Task1");
         printLeapYearOrNotYear(2021);
         System.out.println("Task2");
-        printInfoAboutVersion (1, 2018);
+        printInfoAboutVersion (1, 2023);
         System.out.println("Task3");
-        calculateDeliveryDays(95);
+        int deliverydays = calculateDeliveryDays(101);
+        if (deliverydays > 0) {
+            System.out.println("Потребуется дней " + deliverydays);
+        } else {
+            System.out.println("Доставки нет");
+        }
     }
 
     public static void printLeapYearOrNotYear(int year) {
@@ -20,6 +25,8 @@ public class Main {
 
     public static void printInfoAboutVersion(int os, int clientDeviceYear) {
         if (os != 0 && os != 1) {
+            System.out.println("Некорректная ОС");
+            return;
         }
         int curentYear = LocalDate.now().getYear();
         if (os == 1 && clientDeviceYear >= 2015) {
@@ -32,18 +39,17 @@ public class Main {
             System.out.println("Установите облегченную версию приложения для Android");
         }
     }
-    public static void calculateDeliveryDays (int distance) {
-        int days = 1;
-        if (distance > 100) {
-            System.out.println("Доставки нет");
-        } else {
-            if (distance > 20) {
-                days++;
-            }
-            if (distance > 60) {
-                days++;
-            }
-            System.out.println("Потребуется дней " + days);
+    public static int calculateDeliveryDays (int distance) {
+        if (distance < 0 || distance > 100) {
+            return 0;
         }
+        int days = 1;
+        if (distance >= 20) {
+            days++;
+        }
+        if (distance >= 60) {
+            days++;
+        }
+        return days;
     }
 }
